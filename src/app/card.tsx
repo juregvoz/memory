@@ -1,14 +1,19 @@
+'use client';
 import React from 'react';
 
 type CardProps = {
-    index: number,
-    icon: string
+    key: number,
+    icon: string,
+    flipped: boolean;
+    matched: boolean;
+    onClick: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ index, icon }) => {
+const Card: React.FC<CardProps> = ({ icon, flipped, matched, onClick }) => {
     return (
-        <div key={index} style={styles.card}>
-            <div style={styles.icon}>{icon}</div>
+        <div onClick={onClick} style={
+            { ...styles.card, backgroundColor: (matched ? 'orange' : 'lightblue') }}>
+            {(flipped && !matched) && <div style={styles.icon}>{icon}</div>}
         </div >
     );
 };
@@ -18,7 +23,7 @@ const styles: {
     icon: React.CSSProperties;
 } = {
     card: {
-        backgroundColor: "lightblue",
+        cursor: "pointer",
         width: '100%',
         height: '100%',
         display: 'flex',
@@ -33,6 +38,5 @@ const styles: {
         lineHeight: 0,
     },
 }
-
 
 export default Card;
