@@ -9,7 +9,14 @@ interface CardData {
   matched: boolean;
 }
 
-const Board = () => {
+type BoardProps = {
+  player: number;
+  setPlayer: React.Dispatch<React.SetStateAction<number>>;
+  result: [number, number];
+  setResult: React.Dispatch<React.SetStateAction<[number, number]>>;
+}
+
+const Board: React.FC<BoardProps> = ({ player, setPlayer, result, setResult }) => {
 
   const generateCards = (): CardData[] => {
     const icons = [
@@ -41,6 +48,9 @@ const Board = () => {
         setTimeout(() => {
           newCards[newOpenCards[0]].matched = true;
           newCards[newOpenCards[1]].matched = true;
+          const newResult: [number, number] = [...result];
+          newResult[player - 1] += 1;
+          setResult(newResult);
           setOpenCards([]);
           return;
         }, 1000);
@@ -50,6 +60,7 @@ const Board = () => {
           newCards[newOpenCards[1]].flipped = false;
           setCards(newCards);
           setOpenCards([]);
+          setPlayer((player === 1) ? 2 : 1)
         }, 1000);
       }
     }
@@ -66,7 +77,8 @@ const Board = () => {
             < Card key={card.id} icon={card.icon}
               flipped={card.flipped}
               matched={card.matched}
-              onClick={() => handleCardClick(card.id)} />
+              onClick={() => handleCardClick(card.id)}
+            />
           ))}
         </div>
       </div>

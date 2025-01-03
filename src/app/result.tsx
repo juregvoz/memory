@@ -1,12 +1,20 @@
+'use client';
 import React from 'react';
 
-const Result = () => {
+type ResultProps = {
+    player: number;
+    result: [number, number];
+}
+
+const Result: React.FC<ResultProps> = ({ player, result }) => {
+    const [player1Score, player2Score] = result;
+
     return (
         <div style={styles.bar}>
             <div style={styles.result}>
-                <h2>Player 1</h2>
-                <h2>0 : 0</h2>
-                <h2>Player 2</h2>
+                <h2 style={{ ...styles.bar, color: ((player === 1) ? 'red' : 'black') }}>Player 1</h2>
+                <h2>{player1Score} : {player2Score}</h2>
+                <h2 style={{ ...styles.bar, color: ((player === 2) ? 'red' : 'black') }}>Player 2</h2>
             </div>
         </div >
     )
@@ -15,7 +23,6 @@ const Result = () => {
 const styles: {
     bar: React.CSSProperties;
     result: React.CSSProperties;
-
 } = {
     bar: {
         display: 'flex',
