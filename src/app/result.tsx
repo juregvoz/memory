@@ -4,10 +4,34 @@ import React from 'react';
 type ResultProps = {
     player: number;
     result: [number, number];
+    width: number;
 }
 
-const Result: React.FC<ResultProps> = ({ player, result }) => {
+const Result: React.FC<ResultProps> = ({ player, result, width }) => {
     const [player1Score, player2Score] = result;
+
+    const styles: {
+        bar: React.CSSProperties;
+        result: React.CSSProperties;
+    } = {
+        bar: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '10px',
+        },
+        result: {
+            boxSizing: 'border-box',
+            border: '7px solid orange',
+            padding: '10px',
+            maxWidth: '90vh',
+            width: `${width}px`,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            height: '5vh',
+        }
+    }
 
     return (
         <div style={styles.bar}>
@@ -18,31 +42,6 @@ const Result: React.FC<ResultProps> = ({ player, result }) => {
             </div>
         </div >
     )
-}
-
-const styles: {
-    bar: React.CSSProperties;
-    result: React.CSSProperties;
-} = {
-    bar: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '10px',
-
-
-    },
-    result: {
-        boxSizing: 'border-box',
-        border: '7px solid orange',
-        padding: '10px',
-        maxWidth: '90vh',
-        width: '45vw',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: '5vh',
-    }
 }
 
 export default Result;

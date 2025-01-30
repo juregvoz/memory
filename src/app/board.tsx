@@ -14,9 +14,10 @@ type BoardProps = {
   setPlayer: React.Dispatch<React.SetStateAction<number>>;
   result: [number, number];
   setResult: React.Dispatch<React.SetStateAction<[number, number]>>;
+  size: { width: number; height: number; }
 }
 
-const Board: React.FC<BoardProps> = ({ player, setPlayer, result, setResult }) => {
+const Board: React.FC<BoardProps> = ({ player, setPlayer, result, setResult, size }) => {
 
   const generateCards = (): CardData[] => {
     const icons = [
@@ -69,6 +70,40 @@ const Board: React.FC<BoardProps> = ({ player, setPlayer, result, setResult }) =
     setOpenCards(newOpenCards);
   }
 
+  const styles: {
+    container: React.CSSProperties;
+    square: React.CSSProperties;
+    grid: React.CSSProperties;
+
+  } = {
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '90vh',
+    },
+    square: {
+      maxHeight: '90vh',
+      maxWidth: '90vh',
+      width: `${size.width}px`,
+      height: `${size.height}px`,
+      backgroundColor: 'orange',
+      position: 'relative',
+    },
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gridTemplateRows: 'repeat(4, 1fr)',
+      gap: '2%',
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: '95%',
+      height: '95%',
+    }
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.square}>
@@ -84,40 +119,6 @@ const Board: React.FC<BoardProps> = ({ player, setPlayer, result, setResult }) =
       </div>
     </div>
   );
-};
-
-const styles: {
-  container: React.CSSProperties;
-  square: React.CSSProperties;
-  grid: React.CSSProperties;
-
-} = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '90vh',
-  },
-  square: {
-    maxHeight: '90vh',
-    maxWidth: '90vh',
-    width: '45vw',
-    height: '45vw',
-    backgroundColor: 'orange',
-    position: 'relative',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gridTemplateRows: 'repeat(4, 1fr)',
-    gap: '2%',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '95%',
-    height: '95%',
-  }
 };
 
 export default Board;
